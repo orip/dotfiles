@@ -1,0 +1,16 @@
+[branch]
+    autosetuprebase = always
+[push]
+    default = tracking
+[color]
+    ui = true
+[alias]
+    ci = commit
+    co = checkout
+    st = status
+    ff = pull --ff-only
+    up = pull --rebase
+    rl = log -g --format='%h [%ai] %aN:\t%gs'
+    lgp = log --format='%h %ar\t    %aN:\t%s%+d'
+    lg = log --format='%C(white)%h%Creset %C(cyan bold)%ar%Creset\t    %C(red bold)%aN%Creset:\t%s%C(yellow bold)%+d%Creset'
+    where = branch -r --contains
