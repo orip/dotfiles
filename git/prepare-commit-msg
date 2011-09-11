@@ -1,7 +1,23 @@
 #!/bin/sh
 #
+# Prepend current ticket to the commit message, can specify which format.
 # Append a commented-out diff. Completions work in the commit message editor.
 
+
+TICKET_FORMAT='[#%s]' # Lighthouse's ticket format
+function prepend_current_ticket {
+   # current branch prefixed by "* "
+   current_branch=`git branch | grep "^* " | sed "s/^..//"`
+   # remove lines that don't start with "<digits>_" and the remove the underscore and everything after it
+   current_ticket=`echo $current_branch | sed '/^[0-9]\+_/! {d}; s/_.*$//'`
+
+   # prepend lines to the commit file
+   randomfilename=$1.prepare-commit-msg.temp.$RANDOM.$RANDOM
+   mv $1 $randomfilename
+   [[ ! -z "$current_ticket" ]] && printf "\n\n$TICKET_FORMAT\n" $current_ticket >> "$1"
+   cat $randomfilename >> "$1"
+   rm $randomfilename
+}
 
 function append_commented_diff {
    # 2 empty comment lines
@@ -12,6 +28,7 @@ function append_commented_diff {
 
 case "$2,$3" in
  ,|template,)
+   prepend_current_ticket "$1"
    append_commented_diff "$1"
 
    ;;
