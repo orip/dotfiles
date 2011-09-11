@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Append a commented-out diff. Completions work in the commit message editor.
+
+
+function append_commented_diff {
+   # 2 empty comment lines
+   printf "#\n#\n" >> "$1"
+   # add the diff, prefixed as comment lines
+   git diff --cached | sed 's/^/# /' >> "$1"
+}
+
+case "$2,$3" in
+ ,|template,)
+   append_commented_diff "$1"
+
+   ;;
+  *) ;;
+esac
