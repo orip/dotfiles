@@ -27,3 +27,5 @@ source_if_exists() {
 }
 source_if_exists $script_dir/private_env.zsh
 source_if_exists $HOME/private_env.zsh
+
+export PATH=$PATH:$HOME/bin
