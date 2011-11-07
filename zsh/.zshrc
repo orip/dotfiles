@@ -9,11 +9,12 @@ bindkey -e
 autoload -Uz compinit
 compinit
 
-source $script_dir/phils_zsh_prompt.zsh
 export EDITOR=vim
 alias ll='ls -la'
 
 # color, see https://github.com/twerth/dotfiles/blob/master/etc/bashrc
+autoload -U colors
+colors
 export TERM=xterm-color
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 export CLICOLOR=1 
@@ -21,6 +22,8 @@ export CLICOLOR=1
 alias ls='ls --color=auto'
 # ls colors, see: http://www.linux-sxs.org/housekeeping/lscolors.html
 export LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rb=90'
+
+source $script_dir/phils_zsh_prompt.zsh
 
 source_if_exists() {
     [[ -r $1 ]] && source $1
